@@ -1,0 +1,336 @@
+from tkinter import *
+from itertools import permutations
+from itertools import combinations
+import random
+import statistics
+
+def click(event):
+    global scvalue
+
+    text = event.widget.cget("text")
+    ## for equal sign
+    if text == "=":
+        if scvalue.get().isdigit():
+            value = int(scvalue.get())
+        else:
+            value = eval(screen.get())
+        scvalue.set(value)
+        screen.update()
+    ### for clear scrren
+    elif text == "C":
+        scvalue.set("")
+        screen.update()
+   ### reverse of a number
+    elif text =="Inv":
+        a=0
+        c = int(scvalue.get())
+        while c>0:
+            b = c%10
+            a = a*10 + b
+            c = c//10
+        scvalue.set(a)
+        screen.update()
+    ### factorial of a given number
+    elif text == "x!":
+        a = int(scvalue.get())
+        b=1
+        for i in range(1,a+1):
+            b = b*i
+        scvalue.set(b)
+        screen.update()
+    ### fabonacci number
+    elif text == "Fibo":
+        n = int(scvalue.get())
+        a=0
+        b=1
+        c=0
+        def fib(n):
+            if n==0:
+                c=a
+            elif n==1 or n==2:
+                c=b
+            else:
+                c = fib(n-1) + fib(n-2)
+            return c
+        scvalue.set(fib(n))
+        screen.update()
+    ## all permutation for in given range
+    elif text == "Per":
+        n = int(scvalue.get())
+        per= permutations(range(0,n+1),2)
+        l=[]
+        for i in list(per):
+            l.append(i)
+        scvalue.set(l)
+        screen.update()
+    ### all combination for give range
+    elif text == "Comb":
+        n = int(scvalue.get())
+        com = combinations(range(0,n+1),2)
+        l=[]
+        for i in list(com):
+            l.append(i)
+        scvalue.set(l)
+        screen.update()
+    ### for finding mean for random numbers
+    elif text == "Mean":
+        n = int(scvalue.get())
+        l=[]
+        for i in range(0,n):
+            l.append(random.randint(0,n))
+        b = sum(l)//n
+        scvalue.set(b)
+        screen.update()
+    ### finding mode for random numbers
+    elif text == "Mode":
+        n = int(scvalue.get())
+        l=[]
+        for i in range(0,n):
+            l.append(random.randint(0,n))
+        scvalue.set(statistics.mode(l))
+        screen.update()
+    #### finding median for random numbers
+    elif text == "Median":
+        n = int(scvalue.get())
+        l=[]
+        for i in range(0,n):
+            l.append(random.randint(0,n))
+        scvalue.set(statistics.median(l))
+        screen.update()
+    ### find and beetwen a given number and a random number
+    elif text == "AND":
+        n = int(scvalue.get())
+        a= random.randint(0,n)
+        scvalue.set(n and a)
+        screen.update()
+    ### find or beewrn a given number and a ramdom number
+    elif text == "OR":
+        n = int(scvalue.get())
+        a= random.randint(0,n)
+        scvalue.set(a or n)
+        screen.update()
+      ### finding NOR  
+    elif text == "NOR":
+        n = int(scvalue.get())
+        a = random.randint(0,n)
+        def nor(b,c):
+            if b==0 and c==0:
+                return 1
+            elif b==0 and c==1:
+                return 0
+            elif b==1 and c==0:
+                return 0
+            elif b==1 and c==1:
+                return 0
+        scvalue.set(bool(nor(n,a)))
+        screen.update()
+
+    ## for finding Standerd deviation in list of numbers
+    elif text == "STD":
+        n = int(scvalue.get())
+        l=[]
+        for i in range(0,n):
+            l.append(random.randint(0,n))
+        scvalue.set(statistics.stdev(l))
+        screen.update()
+    ### for finding variance in list
+    elif text == "Var":
+        n = int(scvalue.get())
+        l=[]
+        for i in range(0,n):
+            l.append(random.randint(0,n))
+        scvalue.set(statistics.variance(l))
+        screen.update()
+    ## foe testing
+    elif text == "Test":
+        n = int(scvalue.get())
+        l=[]
+        for i in range(0,n):
+            l.append(random.randint(0,n))
+        scvalue.set(bool(sum(l)==random.randint(0,n)))
+        screen.update()
+
+
+
+
+        
+        
+
+
+
+    else:
+        scvalue.set(scvalue.get() + text)
+        screen.update()
+
+
+
+### root var
+
+root = Tk()
+root.title("Scientific Calculator")
+root.configure(background = 'white')
+root.geometry("644x900")
+ ### user input and var
+scvalue = StringVar()
+scvalue.set("")
+screen = Entry(root, textvariable=scvalue, font="lucida 40 bold")
+screen.pack(fill=X,ipadx=8,pady=10,padx=10)
+
+### Row 1 for buttons
+
+f = Frame(root, bg="grey")
+b = Button(f,text= "C", width=5,height=2,bd=2,relief=SUNKEN,bg='dodgerblue3',fg='white',font=('arial', 18, 'bold'),activebackground='dodgerblue3')
+b.pack(side=LEFT,padx=18,pady=12)
+b.bind("<Button-1>",click)
+
+b = Button(f,text= "+", width=5,height=2,bd=2,relief=SUNKEN,bg='dodgerblue3',fg='white',font=('arial', 18, 'bold'),activebackground='dodgerblue3')
+b.pack(side=LEFT,padx=18,pady=12)
+b.bind("<Button-1>",click)
+
+b = Button(f,text= "Inv", width=5,height=2,bd=2,relief=SUNKEN,bg='dodgerblue3',fg='white',font=('arial', 18, 'bold'),activebackground='dodgerblue3')
+b.pack(side=LEFT,padx=18,pady=12)
+b.bind("<Button-1>",click)
+
+b = Button(f,text= "AND", width=5,height=2,bd=2,relief=SUNKEN,bg='dodgerblue3',fg='white',font=('arial', 18, 'bold'),activebackground='dodgerblue3')
+b.pack(side=LEFT,padx=18,pady=12)
+b.bind("<Button-1>",click)
+
+b = Button(f,text= "OR", width=5,height=2,bd=2,relief=SUNKEN,bg='dodgerblue3',fg='white',font=('arial', 18, 'bold'),activebackground='dodgerblue3')
+b.pack(side=LEFT,padx=18,pady=12)
+b.bind("<Button-1>",click)
+
+
+f.pack()
+
+### Row 2 for buttons
+
+f = Frame(root, bg="grey")
+b = Button(f,text= "1", width=5,height=2,bd=2,relief=SUNKEN,bg='dodgerblue3',fg='white',font=('arial', 18, 'bold'),activebackground='dodgerblue3')
+b.pack(side=LEFT,padx=18,pady=12)
+b.bind("<Button-1>",click)
+
+b = Button(f,text= "2", width=5,height=2,bd=2,relief=SUNKEN,bg='dodgerblue3',fg='white',font=('arial', 18, 'bold'),activebackground='dodgerblue3')
+b.pack(side=LEFT,padx=18,pady=12)
+b.bind("<Button-1>",click)
+
+b = Button(f,text= "3", width=5,height=2,bd=2,relief=SUNKEN,bg='dodgerblue3',fg='white',font=('arial', 18, 'bold'),activebackground='dodgerblue3')
+b.pack(side=LEFT,padx=18,pady=12)
+b.bind("<Button-1>",click)
+
+b = Button(f,text= "-", width=5,height=2,bd=2,relief=SUNKEN,bg='dodgerblue3',fg='white',font=('arial', 18, 'bold'),activebackground='dodgerblue3')
+b.pack(side=LEFT,padx=18,pady=12)
+b.bind("<Button-1>",click)
+
+b = Button(f,text= "Per", width=5,height=2,bd=2,relief=SUNKEN,bg='dodgerblue3',fg='white',font=('arial', 18, 'bold'),activebackground='dodgerblue3')
+b.pack(side=LEFT,padx=18,pady=12)
+b.bind("<Button-1>",click)
+
+
+f.pack()
+
+### row 3 for buttons
+
+f = Frame(root, bg="grey")
+b = Button(f,text= "4", width=5,height=2,bd=2,relief=SUNKEN,bg='dodgerblue3',fg='white',font=('arial', 18, 'bold'),activebackground='dodgerblue3')
+b.pack(side=LEFT,padx=18,pady=12)
+b.bind("<Button-1>",click)
+
+b = Button(f,text= "5", width=5,height=2,bd=2,relief=SUNKEN,bg='dodgerblue3',fg='white',font=('arial', 18, 'bold'),activebackground='dodgerblue3')
+b.pack(side=LEFT,padx=18,pady=12)
+b.bind("<Button-1>",click)
+
+b = Button(f,text= "6", width=5,height=2,bd=2,relief=SUNKEN,bg='dodgerblue3',fg='white',font=('arial', 18, 'bold'),activebackground='dodgerblue3')
+b.pack(side=LEFT,padx=18,pady=12)
+b.bind("<Button-1>",click)
+
+b = Button(f,text= "*", width=5,height=2,bd=2,relief=SUNKEN,bg='dodgerblue3',fg='white',font=('arial', 18, 'bold'),activebackground='dodgerblue3')
+b.pack(side=LEFT,padx=18,pady=12)
+b.bind("<Button-1>",click)
+
+b = Button(f,text= "Mode", width=5,height=2,bd=2,relief=SUNKEN,bg='dodgerblue3',fg='white',font=('arial', 18, 'bold'),activebackground='dodgerblue3')
+b.pack(side=LEFT,padx=18,pady=12)
+b.bind("<Button-1>",click)
+
+
+f.pack()
+
+###row 4 of bottons
+
+f = Frame(root, bg="grey")
+b = Button(f,text= "7", width=5,height=2,bd=2,relief=SUNKEN,bg='dodgerblue3',fg='white',font=('arial', 18, 'bold'),activebackground='dodgerblue3')
+b.pack(side=LEFT,padx=18,pady=12)
+b.bind("<Button-1>",click)
+
+b = Button(f,text= "8", width=5,height=2,bd=2,relief=SUNKEN,bg='dodgerblue3',fg='white',font=('arial', 18, 'bold'),activebackground='dodgerblue3')
+b.pack(side=LEFT,padx=18,pady=12)
+b.bind("<Button-1>",click)
+
+b = Button(f,text= "9", width=5,height=2,bd=2,relief=SUNKEN,bg='dodgerblue3',fg='white',font=('arial', 18, 'bold'),activebackground='dodgerblue3')
+b.pack(side=LEFT,padx=18,pady=12)
+b.bind("<Button-1>",click)
+
+b = Button(f,text= "/", width=5,height=2,bd=2,relief=SUNKEN,bg='dodgerblue3',fg='white',font=('arial', 18, 'bold'),activebackground='dodgerblue3')
+b.pack(side=LEFT,padx=18,pady=12)
+b.bind("<Button-1>",click)
+
+b = Button(f,text= "STD", width=5,height=2,bd=2,relief=SUNKEN,bg='dodgerblue3',fg='white',font=('arial', 18, 'bold'),activebackground='dodgerblue3')
+b.pack(side=LEFT,padx=18,pady=12)
+b.bind("<Button-1>",click)
+
+
+
+f.pack()
+
+## row 5 of buttons
+
+f = Frame(root, bg="grey")
+b = Button(f,text= "0", width=5,height=2,bd=2,relief=SUNKEN,bg='dodgerblue3',fg='white',font=('arial', 18, 'bold'),activebackground='dodgerblue3')
+b.pack(side=LEFT,padx=18,pady=12)
+b.bind("<Button-1>",click)
+
+b = Button(f,text= "=", width=5,height=2,bd=2,relief=SUNKEN,bg='dodgerblue3',fg='white',font=('arial', 18, 'bold'),activebackground='dodgerblue3')
+b.pack(side=LEFT,padx=18,pady=12)
+b.bind("<Button-1>",click)
+
+b = Button(f,text= "Test", width=5,height=2,bd=2,relief=SUNKEN,bg='dodgerblue3',fg='white',font=('arial', 18, 'bold'),activebackground='dodgerblue3')
+b.pack(side=LEFT,padx=18,pady=12)
+b.bind("<Button-1>",click)
+
+b = Button(f,text= "NOR", width=5,height=2,bd=2,relief=SUNKEN,bg='dodgerblue3',fg='white',font=('arial', 18, 'bold'),activebackground='dodgerblue3')
+b.pack(side=LEFT,padx=18,pady=12)
+b.bind("<Button-1>",click)
+
+b = Button(f,text= "Fibo", width=5,height=2,bd=2,relief=SUNKEN,bg='dodgerblue3',fg='white',font=('arial', 18, 'bold'),activebackground='dodgerblue3')
+b.pack(side=LEFT,padx=18,pady=12)
+b.bind("<Button-1>",click)
+
+
+f.pack()
+
+## row 6 for buttons
+
+
+f = Frame(root,bg="grey")
+b = Button(f,text= "Comb", width=5,height=2,bd=2,relief=SUNKEN,bg='dodgerblue3',fg='white',font=('arial', 18, 'bold'),activebackground='dodgerblue3')
+b.pack(side=LEFT,padx=18,pady=12)
+b.bind("<Button-1>",click)
+
+b = Button(f,text= "Mean", width=5,height=2,bd=2,relief=SUNKEN,bg='dodgerblue3',fg='white',font=('arial', 18, 'bold'),activebackground='dodgerblue3')
+b.pack(side=LEFT,padx=18,pady=12)
+b.bind("<Button-1>",click)
+
+b = Button(f,text= "Median", width=5,height=2,bd=2,relief=SUNKEN,bg='dodgerblue3',fg='white',font=('arial', 18, 'bold'),activebackground='dodgerblue3')
+b.pack(side=LEFT,padx=18,pady=12)
+b.bind("<Button-1>",click)
+
+b = Button(f,text= "Var", width=5,height=2,bd=2,relief=SUNKEN,bg='dodgerblue3',fg='white',font=('arial', 18, 'bold'),activebackground='dodgerblue3')
+b.pack(side=LEFT,padx=18,pady=12)
+b.bind("<Button-1>",click)
+
+b = Button(f,text= "x!", width=5,height=2,bd=2,relief=SUNKEN,bg='dodgerblue3',fg='white',font=('arial', 18, 'bold'),activebackground='dodgerblue3')
+b.pack(side=LEFT,padx=18,pady=12)
+b.bind("<Button-1>",click)
+
+f.pack()
+
+root.mainloop()
