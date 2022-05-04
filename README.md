@@ -1,6 +1,6 @@
 - 👋 Hi, I’m @sauravdhaka
-- 👀 I’m interested in Data Science
-- 🌱 I’m currently learning ML
+- 👀 I’m interested in Data Science, Blockchain
+- 🌱 I’m currently learning Blockchain Technology
 - 💞️ I’m looking to collaborate on ...
 - 📫 How to reach me 19145@iiitu.ac.in
 
