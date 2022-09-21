@@ -2,7 +2,7 @@
 - 👀 I’m interested in Data Science, Blockchain
 - 🌱 I’m currently learning Blockchain Technology
 - 💞️ I’m looking to collaborate on ...
-- 📫 How to reach me 19145@iiitu.ac.in
+- 📫 How to reach me sauravdhaka456@gmail.com
 
 <!---
 sauravdhaka/sauravdhaka is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
